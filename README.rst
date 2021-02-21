@@ -31,6 +31,9 @@ For snippets check out `Restructured Text (RST) Snippets`_.
 Changes
 -------
 
+2021-02-21
+    - forked by Adam Johnson
+
 2014-09-13
     - fix issue #6, only recognized preformatted code will be highlighted, other is skipped unhighlighted.
 
