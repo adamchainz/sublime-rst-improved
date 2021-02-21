@@ -1,6 +1,9 @@
 reStructuredText Improved
 =========================
 
+**Note:** The `original repository <https://bitbucket.org/klorenz/sublimerestructuredtextimproved>`__ for this package was lost.
+I (Adam) have revived this package in February 2021, from the version installed on my computer, in February 2021.
+
 Overview
 --------
 
