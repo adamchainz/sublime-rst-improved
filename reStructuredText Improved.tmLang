@@ -1,0 +1,664 @@
+comment: syntax highlighting for reStructuredText http://docutils.sourceforge.net, based on rst mode from jEdit
+name: reStructuredText Improved
+
+# set source.restrcturedtext instead of text.restructuredtext such that completions are shown
+scopeName: text.restructuredtext
+
+keyEquivalent: ^~R
+fileTypes: <rst rest>
+uuid: 62DA9AD6-36E1-4AB7-BB87-E933AD9FD1A4
+
+Settings::
+	auto_complete_selector: text
+
+Symbol List - Section::
+	uuid: 5a7f0d05-871b-4408-959b-003a66878ee1
+	scope: text.restructuredtext entity.name, text.restructuredtext markup.heading
+	showInSymbolList: 1
+	symbolTransformation: s/^\s*//; s/\s*$//;
+
+
+# taken from docutils.utils.punctuation_chars
+# openers       = \"\'\(\<\[\{༺༼᚛⁅⁽₍〈❨❪❬❮❰❲❴⟅⟦⟨⟪⟬⟮⦃⦅⦇⦉⦋⦍⦏⦑⦓⦕⦗⧘⧚⧼⸢⸤⸦⸨〈《「『【〔〖〘〚〝〝﴾︗︵︷︹︻︽︿﹁﹃﹇﹙﹛﹝（［｛｟｢«‘“‹⸂⸄⸉⸌⸜⸠‚„»’”›⸃⸅⸊⸍⸝⸡‛‟
+# closers       = \"\'\)\>\]\}༻༽᚜⁆⁾₎〉❩❫❭❯❱❳❵⟆⟧⟩⟫⟭⟯⦄⦆⦈⦊⦌⦎⦐⦒⦔⦖⦘⧙⧛⧽⸣⸥⸧⸩〉》」』】〕〗〙〛〞〟﴿︘︶︸︺︼︾﹀﹂﹄﹈﹚﹜﹞）］｝｠｣»’”›⸃⸅⸊⸍⸝⸡‛‟«‘“‹⸂⸄⸉⸌⸜⸠‚„
+# delimiters    = \-\/\:֊־᐀᠆‐‑‒–—―⸗⸚〜〰゠︱︲﹘﹣－¡·¿;·՚՛՜՝՞՟։׀׃׆׳״؉؊،؍؛؞؟٪٫٬٭۔܀܁܂܃܄܅܆܇܈܉܊܋܌܍߷߸߹࠰࠱࠲࠳࠴࠵࠶࠷࠸࠹࠺࠻࠼࠽࠾।॥॰෴๏๚๛༄༅༆༇༈༉༊་༌།༎༏༐༑༒྅࿐࿑࿒࿓࿔၊။၌၍၎၏჻፡።፣፤፥፦፧፨᙭᙮᛫᛬᛭᜵᜶។៕៖៘៙៚᠀᠁᠂᠃᠄᠅᠇᠈᠉᠊᥄᥅᧞᧟᨞᨟᪠᪡᪢᪣᪤᪥᪦᪨᪩᪪᪫᪬᪭᭚᭛᭜᭝᭞᭟᭠᰻᰼᰽᰾᰿᱾᱿᳓‖‗†‡•‣․‥…‧‰‱′″‴‵‶‷‸※‼‽‾⁁⁂⁃⁇⁈⁉⁊⁋⁌⁍⁎⁏⁐⁑⁓⁕⁖⁗⁘⁙⁚⁛⁜⁝⁞⳹⳺⳻⳼⳾⳿⸀⸁⸆⸇⸈⸋⸎⸏⸐⸑⸒⸓⸔⸕⸖⸘⸙⸛⸞⸟⸪⸫⸬⸭⸮⸰⸱、。〃〽・꓾꓿꘍꘎꘏꙳꙾꛲꛳꛴꛵꛶꛷꡴꡵꡶꡷꣎꣏꣸꣹꣺꤮꤯꥟꧁꧂꧃꧄꧅꧆꧇꧈꧉꧊꧋꧌꧍꧞꧟꩜꩝꩞꩟꫞꫟꯫︐︑︒︓︔︕︖︙︰﹅﹆﹉﹊﹋﹌﹐﹑﹒﹔﹕﹖﹗﹟﹠﹡﹨﹪﹫！＂＃％＆＇＊，．／：；？＠＼｡､･𐄀𐄁𐎟𐏐𐡗𐤟𐤿𐩐𐩑𐩒𐩓𐩔𐩕𐩖𐩗𐩘𐩿𐬹𐬺𐬻𐬼𐬽𐬾𐬿𑂻𑂼𑂾𑂿𑃀𑃁𒑰𒑱𒑲𒑳
+openers            = "'\(\<\[\{
+closers            = "'\)\>\]\}
+delimiters         = \-\/\:=\+\*
+closing_delimiters = \.\,\;\!\?
+
+start_string_prefix = (?:^|(?<=\s|[{openers}{delimiters}]))
+end_string_suffix   = (?:$|(?=\s|[\x{00000000}{closing_delimiters}{delimiters}{closers}]))
+
+# taken from docutils.parsers.rst.states
+uric          = [\-_.!~*'()\[\];/:@&=+$,%a-zA-Z0-9\x{00000000}]
+urilast       = [_~*/=+a-zA-Z0-9]
+uri_end_delim = [>]
+uri_end       = (?:{urilast}|{uric}(?={uri_end_delim}))
+
+emailc        = [\-_!~*'{|}/#?^`&=+$%a-zA-Z0-9\x{00000000}]
+email_name    = {emailc}+(?:\.{emailc}+)*(?<!\x{00000000})
+email_host    = {emailc}+(?:\.{emailc}*)*(?<!\x{00000000})
+email         = {email_name}@{email_host}{uri_end}
+
+uri_scheme    = [a-zA-Z][a-zA-Z0-9.+\-]*
+uri_query     = (?:\?{uric}*{uri_end})
+uri_fragment  = (?:#{uric}*{uri_end})
+uri           = {uri_scheme}:(?://?)?{uric}*{uri_end}{uri_query}?{uri_fragment}?
+
+hws = [\x{00000020}\t]
+space = \x{00000020}
+
+section_char = [=\-`:.'"~^_*+\#]
+
+unnumbered_list_char = [\*\+\-•‣\⁃]
+no_unnumbered_list_char = [^\*\+\-•‣\⁃]
+# unnumbered_list_char = [\*\+\-\x{00002022}\x{00002023}\x{00002043}]
+# unnumbered_list_char = [\*\-]
+
+MAIN
+	#block
+
+string-specials
+	constant.character.escape.restructuredtext
+		\\.
+
+	constant.constant.character.entity.restructuredtext
+		--
+
+
+inline
+	#string-specials
+
+	variable.other.substitution.restructuredtext 
+		\|[^|\s]+\|
+
+	meta.restructuredtext.link-explicit <string.other.ref.restructuredtext>
+		(`)([^`<]+)(`)(__?)\b
+		1: keyword.operator.restructuredtext.group
+		2: string.other.ref.restructuredtext
+		3: keyword.operator.restructuredtext.group
+		4: keyword.operator.restructuredtext.link-explicit
+
+	meta.restructuredtext.link-explicit <string.other.ref.restructuredtext>
+		(`)(?=[^`<]+<[^>]+>`__?\b)
+		1: keyword.operator.restructuredtext.group
+
+		(<)([^>]+)(>)(`)(__?)\b
+		1: keyword.operator.restructuredtext.link
+		2: markup.underline.link.restructuredtext
+		3: keyword.operator.restructuredtext.link
+		4: keyword.operator.restructuredtext.link-explicit
+		5: keyword.operator.restructuredtext.link-explicit
+
+		#string-specials
+
+	meta.restructuredtext.link-explicit
+		([\w\-]+)(__?)\b
+		1: string.other.restructuredtext.ref
+		2: keyword.operator.restructuredtext.link-explicit
+
+	meta.restructuredtext.link-footnote
+		(\[)(\#[\w\-]*|\*|[\w\-]+)(\])(_)
+		1: keyword.operator.group.restructuredtext
+		2: string.other.ref.restructuredtext
+		3: keyword.operator.group.restructuredtext
+		4: keyword.operator.link.restructuredtext
+
+	# inline hyperref target
+	storage.class.ref.restructuredtext
+		(_`)
+		1: keyword.operator.ref.restructuredtext
+
+		(`)|^\s*$
+		1: keyword.operator.ref.restructuredtext
+
+	string.other.link.implicit.restructuredtext
+		({start_string_prefix}({uri}|{email}){end_string_suffix})
+		1: markup.underline.link.restructuredtext.implicit
+
+#	invalid.illegal.preformatted.restructuredtext
+#		(``)
+#		1: keyword.operator.code.restructuredtext
+#
+#		^\s*$
+
+	<variable.parameter.restructuredtext.preformatted>
+		(?<!`)(``)(.)
+		1: keyword.operator.code.restructuredtext
+		2: variable.parameter.restructuredtext.preformatted
+
+		(``)(?!`)|^\s*$
+		1: keyword.operator.code.restructuredtext
+
+	meta.restructuredtext.link-explicit <string.other.ref.restructuredtext>
+		(:)(doc|ref)(:`)(?=[^`<]+<[^>]+>`)
+		1: keyword.operator.restructuredtext.role
+		2: keyword.restructuredtext.role
+		3: keyword.operator.restructuredtext.role
+
+		(<)([^>]+)(>)(`)
+		1: keyword.operator.restructuredtext.link
+		2: markup.underline.link.restructuredtext
+		3: keyword.operator.restructuredtext.link
+		4: keyword.operator.restructuredtext.role
+
+		#string-specials
+
+	meta.restructuredtext.link-explicit
+		(:)(doc|ref)(:`)([^`<]*)(`)
+		1: keyword.operator.restructuredtext.role
+		2: keyword.restructuredtext.role
+		3: keyword.operator.restructuredtext.role
+		4: markup.underline.link.restructuredtext
+		5: keyword.operator.restructuredtext.role
+
+	meta.restructuredtext.role
+		(:)([\w\-]+)(?:(:)([\w\-]+))?(:`)([^`]*)(`)
+		1: keyword.operator.restructuredtext.role
+		2: keyword.restructuredtext.role
+		3: keyword.operator.restructuredtext.role
+		4: keyword.restructuredtext.role
+		5: keyword.operator.restructuredtext.role
+		6: string.quoted.other.restructuredtext.role
+		7: keyword.operator.restructuredtext.role
+
+#	invalid.illegal.markup.bold.restructuredtext
+#		(\*\*)
+#		1: keyword.operator.bold.restructuredtext
+#
+#		^\s*$
+
+	markup.bold.restructuredtext
+		(\*\*)
+		1: keyword.operator.bold.restructuredtext
+
+		(\*\*)|^\s*$
+		1: keyword.operator.bold.restructuredtext
+
+#	invalid.illegal.markup.italic.restructuredtext
+#		([*`])
+#		1: keyword.operator.emph.restructuredtext
+#
+#		^\s*$
+
+	markup.italic.restructuredtext
+		([*`])
+		1: keyword.operator.emph.restructuredtext
+
+		(\1)|^\s*$
+		1: keyword.operator.emph.restructuredtext
+
+block
+	#directive
+	#parameter
+	#table
+	#option-list
+	#line-block
+	#blockquote
+	#doctest-block
+	#refdef
+	#substdef
+	#anonymous-ref
+	#footnote
+	#list-unnumbered
+	#list-numbered
+	#headline-or-term
+	#headline-with-overline
+	#comment
+	#paragraph
+	#preformatted
+	#whitespace-line
+
+line-block
+	markup.list.restructuredtext.line-block
+		^(?=({hws}*)\|{hws})
+		^(?!\1(\|{hws}|\|$|{hws}))
+
+		#line-block-content
+
+line-block-content
+	meta.block.restructuredtext.line-block-line
+		^({hws}*)(\|)
+		2: keyword.operator.restructuredtext.line-block
+
+		^((?=\1\|)|(?!\1\s))
+
+		#inline
+
+doctest-block
+	meta.block.doctest.block.restructuredtext
+
+		^({hws}*)(>>>){space}(.*)
+		2: keyword.operator.doctest.ps1.restructuredtext
+		3: variable.other.doctest.ps1.restructuredtext
+
+		^(?!\1(>>>|\.\.\.|\S))
+
+		meta.line.doctest.ps1.restructuredtext
+			^{hws}*(>>>){space}(.*)
+			1: keyword.operator.doctest.ps1.restructuredtext
+			2: variable.other.doctest.ps1.restructuredtext
+
+		meta.line.doctest.ps1.restructuredtext
+			^{hws}*(\.\.\.){space}(.*)
+			1: keyword.operator.doctest.ps2.restructuredtext
+			2: variable.other.doctest.ps2.restructuredtext
+
+		meta.line.doctest.expected.restructuredtext
+			^{hws}*(\S.*)
+			1: string.other.doctest.expected.restructuredtext
+
+blockquote
+	meta.block.blockquote.author.restructuredtext
+		^{hws}+(--)\s+(.*)
+		1: keyword.operator.blockquote-author.restructuredtext
+		2: string.other.blockquote-author.restructuredtext
+
+table
+	meta.block.table.restructuredtext
+		^(?=({hws}*)(\+\-+)+\+\s*)
+		^(?!\1(\+|\|))
+
+		#table-content
+
+	keyword.operator.table.row.restructuredtext
+		^{hws}*(==+{space}+)+==+$
+
+	keyword.operator.table.row.restructuredtext
+		^{hws}*(--+{space}+)+--+$
+
+
+table-content
+	keyword.operator.table.row.restructuredtext
+		^{hws}*(\+\-+)+\+
+
+	keyword.operator.table.row.restructuredtext
+		^{hws}*(\+=+)+\+
+
+	meta.block.table.data.restructuredtext
+		(\|(?={hws}))
+		1: keyword.operator.table.data.restructuredtext
+
+		(?<=\s)(?=\|)
+
+		#inline
+
+	keyword.operator.table.data.restructuredtext
+		\|$
+
+option-list
+	meta.documentation.option-list.restructuredtext
+
+		^({hws}*)((?:--?|/)\w(?:(?!{space}{space}).)*)(?={space}{space}+\S|$)
+		2: entity.name.option.restructuredtext
+
+		^((?!\1{hws}+)|$)
+
+		#inline
+
+directive
+	<string.other.restructuredtext.directive.parameter>
+		^({hws}*)(\.\.)\s+([\w\-]+(?::[\w\-]+)*)(::)\s+
+		2: keyword.operator.restructuredtext.directive
+		3: keyword.restructuredtext.directive
+		4: keyword.operator.restructuredtext.directive
+
+		^(?:(?!\1{hws})|(?=\1{hws}+:|\s*$))
+
+parameter
+	meta.variable.parameter
+		^({hws}*)(:)([^:]+)(:)\s+
+		2: keyword.operator.restructuredtext.parameter
+		3: variable.parameter.restructuredtext
+		4: keyword.operator.restructuredtext.parameter
+
+		^(?!(\1{hws}+|$))
+
+refdef
+	<string.other.restructuredtext.ref>
+		^({hws}*)(\.\.\s+_)([^:]*)(:)\s+
+		2: keyword.operator.restructuredtext.ref.start
+		3: storage.class.restructuredtext.ref
+		4: keyword.operator.restructuredtext.ref.end
+
+		^(?!\1{hws}+\S)
+
+footnote
+	<string.other.restructuredtext.ref>
+		^({hws}*)(\.\.\s\[)(\#[\w\-]*|\*|[\w\-]+)(\])
+		2: keyword.operator.restructuredtext.ref.start
+		3: storage.class.restructuredtext.ref
+		4: keyword.operator.restructuredtext.ref.end
+
+		^(?!\1{hws}+\S)
+
+substdef
+	<string.other.restructuredtext.subst>
+		^({hws}*)(\.\.)\s(\|[\w\-]+\|)\s([^:]+)(::)
+		2: keyword.operator.restructuredtext.directive
+		3: variable.other.substitution.restructuredtext 
+		4: keyword.restructuredtext.directive
+		5: keyword.operator.restructuredtext.directive
+
+		^(?!\1{hws}+\S)
+
+anonymous-ref
+	<string.other.restructuredtext.ref>
+		^({hws}*)(__)\s
+		2: keyword.operator.restructuredtext.ref.start
+
+		^(?!\1{hws}+\S)
+
+list-unnumbered
+
+	meta.list.unnumbered.restructuredtext
+		(?x) {hws}* ({unnumbered_list_char}) \s
+		1: keyword.operator.unnumbered-list.restructuredtext
+		$
+		#inline
+
+#	#block
+
+
+	# invalid.illegal.incomplete-list.restructuredtext
+	# 	(?x) ^ ({hws}*) ({unnumbered_list_char}) \s* $
+
+	# markup.list.unnumbered.restructuredtext
+	# 	(?x) ^ ({hws}*) ({unnumbered_list_char}) \s (?=\S)
+	# 	2: keyword.operator.unnumbered-list.restructuredtext
+
+	# 	^(?!(\1{hws}+|$))
+
+	# 	meta.list.unnumbered.first-line.restructuredtext
+	# 		(?x) (?<={unnumbered_list_char}\s)(?=)
+	# 		(?x) $
+	# 		#inline
+
+	# 	meta.list.unnumberd.other-lines.restructuredtext
+	# 		(?x) ^ (?=({hws}+){no_unnumbered_list_char})
+	# 		#block
+	# 		$
+
+		# (?x) ^ ({hws}*) ({unnumbered_list_char}) \s
+		# 2: keyword.operator.unnumbered-list.restructuredtext
+# 
+		# # this works!!
+		# (?x)^(?!(\1{hws}+|$))
+# 
+		# meta.list.unnumbered.first-line.restructuredtext
+			# (?x) (?=.)
+# 
+			# (?x) $
+# 
+			# #inline
+
+#		#block
+
+list-numbered
+
+	meta.list.numbered.restructuredtext
+		(?x) {hws}* (\()((?i)iii|ii|iv|ix|i|viii|vii|vi|v|x|\w)(\)) \s
+		1: keyword.operator.unnumbered-list.restructuredtext
+		2: constant.character.numeration.restructuredtext
+		3: keyword.operator.unnumbered-list.restructuredtext
+		$
+		#inline
+
+	meta.list.numbered.restructuredtext
+		(?x) {hws}* ((?i)iii|ii|iv|ix|i|viii|vii|vi|v|x|\w)([\.\)]) \s
+		1: constant.character.numeration.restructuredtext
+		2: keyword.operator.unnumbered-list.restructuredtext
+		$
+		#inline
+
+#		(?x) ^ (?! (\1 {hws}+ | $))
+
+#		#block
+
+paragraph
+
+	# first a non-indented paragraph
+	meta.paragraph.restructuredtext
+		(?x) ^ (?=\S.*\w)
+		(?x) ^ (?!\S) | ^ (?=[\W\s]*$) | (?=::$)
+
+		#inline
+
+	# indented paragraphs are more fuzzy
+	meta.paragraph.restructuredtext
+		(?x) ^ (?=({hws}+)\S)
+
+		#inline
+
+		(?x) (?=::$) | $
+
+
+headline-or-term
+	<markup.heading.headline.or-term.restructuredtext>
+		(?x) ^ (?= (\S+{space})* \S+ $) (?= (?!\d[\.\)]) \w .{2,55} (?<!\.|::|\\|{space}) $)
+
+		(?x) ^ (?={hws}+\S) | ^ ( ({section_char})\2{2,55} | \s* | (?=\|\s*$) )$
+		1: keyword.operator.heading.restructuredtext
+
+		#inline
+
+#	<markup.heading.headline.or-term.restructuredtext>
+#		(?x) ^ (?= (\S+{space})* \S+ $) (?= [A-Z] .* (?<!\.|::|\\|{space}) $)
+
+
+headline-with-overline
+	<markup.heading.headline.restructuredtext>
+		^((?!::$)({section_char})\2+)$
+		1: keyword.operator.heading.restructuredtext
+
+		^((\1)|\s*)$
+		2: keyword.operator.heading.restructuredtext
+
+		# #headline
+		#inline
+
+#		invalid.illegal.restructuredtext.multiline-headline
+#			^(?!([=\-`:.'"~^_*+#])\1+$).*$
+
+# line-too-long
+#	invalid.illegal.restructuredtext.line-too-long
+#		(?x) ^ \w .{75,}
+
+#	markup.heading.headline.restructuredtext
+#		(?x) ^\w[\w\-\s]{2,55}$ # short lines are considered headline
+
+#	keyword.operator.restructuredtext.heading
+#		^([=\-`:.'"~^_*+#])\1+$
+
+preformatted
+	meta.preformatted.restructuredtext
+		(::)$
+		1: keyword.operator.reStructuredText
+
+		#preformatted-content
+
+		^(?=.)
+
+	# [\S\s])
+
+comment
+	comment.block.dot.double
+		^({hws}*)(\.\.)\s+
+		^(?!\1{hws})
+
+continuation
+	punctuation.separator.continuation.restructuredtext
+		\\$
+
+preformatted-block
+
+	meta.preformatted.block.restructuredtext
+		^(?=({hws}+))
+		^(?!\1)
+
+		#preformatted-content
+# whitespace-line
+# 	invalid.illegal.whitespace-line
+# 		(?x) {hws}+ $
+# 
+# 	#inline
+
+preformatted-content
+	# here try to get the first indented line and make sure that all later lines are indented
+	# the same or empty
+
+	# markup.raw.restructuredtext.preformatted
+	string.unquoted.heredoc.preformatted.python.restructuredtext
+		^({hws}+)(?=(?:class|def) \w+(?:\(.*\))?:$)
+		^(?!\1|$)
+
+		#source.python
+
+	string.unquoted.heredoc.preformatted.ruby.restructuredtext
+		^({hws}+)(?=(?:class|def) \w+(?:\(.*\))?$)
+		^(?!\1|$)
+
+		#source.ruby
+
+	string.unquoted.heredoc.preformatted.html.restructuredtext
+		^({hws}+)(?=\<[\w\-]+(?:\s+[\w\-]+="[^"]*")*\>)
+		^(?!\1|$)
+
+		#text.html
+
+	string.unquoted.heredoc.preformatted.javascript.restructuredtext
+		^({hws}+)(?=function\s+[\$\w]+\(.*\))
+		^(?!\1|$)
+
+		#source.js
+
+	string.unquoted.heredoc.preformatted.javascript.restructuredtext
+		^({hws}+)(?=\$\()
+		^(?!\1|$)
+
+		#source.js
+
+	string.unquoted.heredoc.preformatted.shell.restructuredtext
+		^({hws}+)(?=\${hws})
+		^(?!\1|$)
+
+		#shell
+
+#		#shell
+
+	string.unquoted.heredoc.preformatted.preformatted
+		^(?=({hws}*)>)
+		^(?!\1>)
+
+		meta.preformatted.quoted.line.restructuredtext
+			^{hws}*((?:>{space}?)+)
+			1: keyword.operator.preformatted-line.restructuredtext
+
+	# string.unquoted.heredoc.preformatted.preformatted
+	# 	^({hws}+)(?=\S)
+
+	# 	^(?!\1)
+
+
+shell
+	keyword.operator.shell.restructuredtext
+		(\$)\s
+
+	support.function.builtin.shell.restructuredtext
+		(?x) (?<=[\s\(])\b(?: for | in | do | done | while | if | then |
+			| fi | elif | read | echo | case | esac | exit | die | printf
+			)\b
+
+	keyword.operator.shell.restructuredtext
+		(?x) (?: \;\; | \; | \[\[ | \]\] | \&\& | \|\| | \! | > | < | & | \| )
+
+	support.function.shell.restructuredtext
+		(?x) (?<=[\s\(])\b(?: cp | mv | rm | cat | ls | \[ | \] | find | grep | awk | perl | mkdir 
+			| rmdir | cd | cwd | pwd | svn | git | hg | scp | make | ps 
+			| sed | python | ruby
+			)\b
+
+	entity.other.attribute-name.shell.restructuredtext
+		(?x) (?<=\s)(?: \-[\w\-]+ )
+
+	punctuation.separator.continuation.shell.restructuredtext
+		\\\n
+
+	#shell-variable
+
+	#shell-quoted-string
+
+shell-quoted-string
+	string.quoted.double.shell.restructuredtext
+		(?x)"
+		(?x)"
+
+		constant.character.entity
+			\\.
+
+		#shell-variable
+
+	string.quoted.single.shell.restructuredtext
+		'
+		'
+		constant.character.entity
+			\\.
+
+shell-variable
+	string.interpolated.variable.sublime-zconf
+		(\$\{)
+		1: punctuation.definition.variable.begin.restructuredtext
+
+		(\})
+		1: punctuation.definition.variable.end.restructuredtext
+
+# PYTHON_POST_PROCESSOR
+#
+#	markup.heading.headline.restructuredtext
+#
+#		# you may use $<...> in any patterns, which may be any local variable
+#		# used before.
+#
+#		# context selectors, (this overrides current context given by calling
+#		# of )
+#		# <<markup.heading.headline>> (?x) ^((?!::$)({section_char})\2+)$
+#		#    {{ python code with mob as parameter }}
+#		#
+#		# you may capture names for captures
+#		#
+#		#
+#		#
+#
+#		(?xm) ^(\s*)(?P<headline>[^\s].*)\n\1(?P<sectionline>(?!::$)({section_char})\4+)$
+#			{{
+#				assert len(mob['headline']) == len(mob['sectionline'])
+#			}}
+#
+#		(?x) $<foo>
+#
+#		sectionline: punctuation.section.restructuredtext
+#
+#
+#	markup.definitionlist.term
+#
+#		(?xm) ^(\s*)
+#
+#		(\s*).*\n\1
+#
+
+# headline
+#	invalid.illegal.empty-line.restructuredtext
+#		(?x) {hws}* $
+#
+#	meta.valid.headline.restructuredtext
+#		(?x) ^(?={hws}*\w)
+#
+#		#inline
+#
+#		(?x) ^
+#
+#	invalid.illegal.non
+#		(?x) {hws}* \w.* $
+#
+#		#inline

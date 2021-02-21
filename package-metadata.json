@@ -1,0 +1,8 @@
+{
+  "url": "http://quelltexter.org/",
+  "description": "Improved Syntax Highlighting for RestructuredText.",
+  "version": "2014.09.13.03.14.34",
+  "dependencies": [],
+  "platforms": ["*"],
+  "sublime_text": "*"
+}
