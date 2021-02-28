@@ -31,7 +31,7 @@ For snippets check out `Restructured Text (RST) Snippets`_.
 Changes
 -------
 
-2021-02-21
+1.0.0 (2021-02-28)
     - forked by Adam Johnson
 
 2014-09-13
